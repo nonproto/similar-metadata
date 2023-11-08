@@ -2,7 +2,7 @@ name: Add And Update Metadata
 on:
   workflow_dispatch:
   schedule:
-    - cron:  "0 0 * * 1/4"
+    - cron:  "0 0 * * 2,4"
 jobs:
 
   build:
@@ -49,36 +49,36 @@ jobs:
           title: Update Manga metadata and MU mapping
           delete-branch: true
 
-      - name: Calculate similar
-        run: ./similar calculate similar -t=500
+  #    - name: Calculate similar
+  #     run: ./similar calculate similar -t=500
 
-      - name: Checkout similar data
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT }}
-          repository: CarlosEsco/data
-          ref: update
-          path: similar-data
+  #    - name: Checkout similar data
+  #      uses: actions/checkout@v4
+  #      with:
+  #        token: ${{ secrets.PAT }}
+  #        repository: similar-manga/data
+  #        ref: alternative_repo
+  #        path: similar-data
 
-      - name: cp similar results to similar-data
-        run: |
-          cd similar-data
-          cp -r ../data/similar/ .
+ #     - name: cp similar results to similar-data
+ #       run: |
+ #         cd similar-data
+ #         cp -r ../data/similar/ .
 
 
-      - name: Create PR for Similar data
-        uses: peter-evans/create-pull-request@v5
-        with:
-          path: similar-data
-          token: ${{ secrets.PAT }}
-          add-paths: |
-            similar/*
-          commit-message: Update Similar Mappings
-          branch: auto-update
-          title: Update Similar Mappings
-          body: |
-            Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
-          delete-branch: true
+#      - name: Create PR for Similar data
+#        uses: peter-evans/create-pull-request@v5
+#        with:
+#          path: similar-data
+#          token: ${{ secrets.PAT }}
+#          add-paths: |
+#            similar/*
+#          commit-message: Update Similar Mappings
+#          branch: auto-update
+#          title: Update Similar Mappings
+#          body: |
+#            Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
+#          delete-branch: true
 
 
     
